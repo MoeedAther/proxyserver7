@@ -1544,6 +1544,41 @@ app.post("/transactionStatus/Letsexchange", async (req,res)=>{
 
 })
 
+app.post("/minamount",async(req,res)=>{
+console.log(req.body)
+  const {sel,get}=req.body
+  const url="https://api.changehero.io/v2/"; 
+
+  const params={
+    jsonrpc: "2.0",
+    id: "test",
+    method: "getMinAmount",
+    params: {
+      from: sel,
+      to: get
+    }
+  }
+
+const options={
+method:"POST",
+headers: {
+"Content-Type": "application/json",
+"api-key":"46799cd819854116907d2a6f54926157"
+},
+body:JSON.stringify(params)
+}
+
+const response= await fetch(url,options)
+
+
+const data= await response.json()
+
+console.log(data)
+
+res.json(data)
+ 
+})
+
 
 app.listen(PORT, () => {
   console.log("Server started at http://localhost:" + PORT)+"5002";
