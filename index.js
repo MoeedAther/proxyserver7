@@ -58,6 +58,7 @@ callApi();
 
 app.post("/multiplefetch", async (req, res) => {
 
+  
   changelly_float_price=0
   changelly=0
   exolix=0 
@@ -86,6 +87,27 @@ app.post("/multiplefetch", async (req, res) => {
   const responseCall=6000;
 
   const { sell, get, amount } = req.body
+
+  if(!sell || !get || !amount){
+    return       res.json({
+    hightprice: 0,
+    pricearray:[] ,
+    changelly: 0,
+    exolix: 0,
+    changehero: 0,
+    godex: 0,
+    simpleswap: 0,
+    changenow: 0,
+    stealthio: 0,
+    letsexchange: 0,
+    changelly_fixed: 0,
+    changenow_fixed: 0,
+    stealthio_fixed: 0,
+    exolix_fixed: 0,
+    simpleswap_fixed: 0, 
+    changehero_fixed: 0,
+    letsexchange_fixed: 0})
+  }
 
   console.log(req.body)
 
@@ -236,8 +258,8 @@ app.post("/multiplefetch", async (req, res) => {
        changelly = typeof result1 === 'undefined'? 0: parseFloat(result1)
        changelly_fixed =  parseFloat(changelly_fixed_price)
 
-       changelly = typeof changelly === 'number' && !isNaN(changelly)?changelly.toFixed(5):0;
-       changelly_fixed = typeof changelly_fixed === 'number' && !isNaN(changelly_fixed)?changelly_fixed.toFixed(5):0;
+       changelly = typeof changelly === 'number' && !isNaN(changelly)?changelly.toFixed(8):0;
+       changelly_fixed = typeof changelly_fixed === 'number' && !isNaN(changelly_fixed)?changelly_fixed.toFixed(8):0;
 
       // Exolix
       try { 
@@ -245,7 +267,7 @@ app.post("/multiplefetch", async (req, res) => {
 
             var result2 = await response2.json();
             exolix = typeof result2.toAmount === 'undefined'? 0: parseFloat(result2.toAmount)
-            exolix = typeof exolix === 'number' && !isNaN(exolix)?exolix.toFixed(5):0;
+            exolix = typeof exolix === 'number' && !isNaN(exolix)?exolix.toFixed(8):0;
          
         }else{
           exolix=0
@@ -260,7 +282,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response3.ok){
           var result3 = await response3.json();
            changehero = typeof result3.result === 'undefined'? 0: parseFloat(result3.result)
-           changehero = typeof changehero === 'number' && !isNaN(changehero)?changehero.toFixed(5):0;
+           changehero = typeof changehero === 'number' && !isNaN(changehero)?changehero.toFixed(8):0;
 
       }else{
         changehero=0
@@ -275,7 +297,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response4.ok!="undefined"){
           var result4 = await response4.json();
           godex = typeof result4.amount === 'undefined'? 0: parseFloat(result4.amount)
-          godex = typeof godex === 'number' && !isNaN(godex)?godex.toFixed(5):0;
+          godex = typeof godex === 'number' && !isNaN(godex)?godex.toFixed(8):0;
       }else{
         godex=0
       }
@@ -288,7 +310,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response5.ok){
           var result5 = await response5.json();
           simpleswap = typeof result5 === 'undefined'? 0: parseFloat(result5)
-          simpleswap = typeof simpleswap === 'number' && !isNaN(simpleswap)?simpleswap.toFixed(5):0;
+          simpleswap = typeof simpleswap === 'number' && !isNaN(simpleswap)?simpleswap.toFixed(8):0;
 
       }else{
         simpleswap = 0
@@ -303,7 +325,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response6.ok){
           var result6 = await response6.json();
           changenow = typeof result6.estimatedAmount === 'undefined'? 0: parseFloat(result6.estimatedAmount)
-          changenow = typeof changenow === 'number' && !isNaN(changenow)?changenow.toFixed(5):0;
+          changenow = typeof changenow === 'number' && !isNaN(changenow)?changenow.toFixed(8):0;
       }else{
         changenow=0
       }        
@@ -317,7 +339,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response7.ok!="undefined"){
           var result7 = await response7.json();
            stealthio = typeof result7.estimated_amount === 'undefined'? 0: parseFloat(result7.estimated_amount)
-           stealthio = typeof stealthio === 'number' && !isNaN(stealthio)?stealthio.toFixed(5):0;
+           stealthio = typeof stealthio === 'number' && !isNaN(stealthio)?stealthio.toFixed(8):0;
       }else{
         stealthio=0
       }
@@ -331,7 +353,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response8.ok){
           var result8 = await response8.json();
            letsexchange = typeof result8 === 'undefined'? 0: parseFloat(result8.amount);
-           letsexchange = typeof  letsexchange=== 'number' && !isNaN(letsexchange)?letsexchange.toFixed(5):0;
+           letsexchange = typeof  letsexchange=== 'number' && !isNaN(letsexchange)?letsexchange.toFixed(8):0;
       }else{
         letsexchange=0
       }        } catch (error) {
@@ -343,7 +365,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response10.ok){
           var result10 = await response10.json();
           changenow_fixed = typeof result10.estimatedAmount === 'undefined'? 0: parseFloat(result10.estimatedAmount);
-          changenow_fixed = typeof changenow_fixed === 'number' && !isNaN(changenow_fixed)?changenow_fixed.toFixed(5):0;
+          changenow_fixed = typeof changenow_fixed === 'number' && !isNaN(changenow_fixed)?changenow_fixed.toFixed(8):0;
           changenow_fixed_rateId=result10.rateId
       }else{
         changenow=0
@@ -357,7 +379,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response11.ok){
           var result11 = await response11.json();
           stealthio_fixed = typeof result11.estimated_amount === 'undefined'? 0: parseFloat(result11.estimated_amount)
-          stealthio_fixed = typeof stealthio_fixed === 'number' && !isNaN(stealthio_fixed)?stealthio_fixed.toFixed(5):0;
+          stealthio_fixed = typeof stealthio_fixed === 'number' && !isNaN(stealthio_fixed)?stealthio_fixed.toFixed(8):0;
           stealthio_fixed_rate_id= result11.rate_id;
       }else{
         stealthio_fixed=0
@@ -373,7 +395,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response12.ok){
           var result12 = await response12.json();
            exolix_fixed = typeof result12.toAmount === 'undefined'? 0: parseFloat(result12.toAmount)
-           exolix_fixed = typeof exolix_fixed === 'number' && !isNaN(exolix_fixed)?exolix_fixed.toFixed(5):0;
+           exolix_fixed = typeof exolix_fixed === 'number' && !isNaN(exolix_fixed)?exolix_fixed.toFixed(8):0;
       }else{
         exolix=0
       }        } catch (error) {
@@ -386,7 +408,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response13.ok){
           var result13 = await response13.json();
           simpleswap_fixed = typeof result13 === 'undefined'? 0: parseFloat(result13);
-          simpleswap_fixed = typeof simpleswap_fixed === 'number' && !isNaN(simpleswap_fixed)?simpleswap_fixed.toFixed(5):0;
+          simpleswap_fixed = typeof simpleswap_fixed === 'number' && !isNaN(simpleswap_fixed)?simpleswap_fixed.toFixed(8):0;
       }else{
         simpleswap=0
       }        } catch (error) {
@@ -398,7 +420,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response14.ok){
           var result14 = await response14.json();
           changehero_fixed = parseFloat(result14.result !== undefined && result14.result.length > 0?result14.result[0].result:0)*parseFloat(amount);
-          changehero_fixed = typeof changehero_fixed === 'number' && !isNaN(changehero_fixed)?changehero_fixed.toFixed(5):0;
+          changehero_fixed = typeof changehero_fixed === 'number' && !isNaN(changehero_fixed)?changehero_fixed.toFixed(8):0;
           changehero_fixed_rateId=result14.result[0].id
         }else{
         changehero=0
@@ -414,7 +436,7 @@ app.post("/multiplefetch", async (req, res) => {
       if(response15.ok!="undefined"){
           var result15 = await response15.json();
           letsexchange_fixed = typeof result15 === 'undefined'? 0: parseFloat(result15.amount)
-          letsexchange_fixed = typeof letsexchange_fixed === 'number' && !isNaN(letsexchange_fixed)?letsexchange_fixed.toFixed(5):0;
+          letsexchange_fixed = typeof letsexchange_fixed === 'number' && !isNaN(letsexchange_fixed)?letsexchange_fixed.toFixed(8):0;
           letsexchange_fixed_rateId=result15.rate_id;
         }else{
         letsexchange_fixed=0
@@ -455,7 +477,7 @@ app.post("/multiplefetch", async (req, res) => {
       console.log("Highest value " + sortedArr[0].value + sortedArr[0].name);
 
       const responseObj={
-        hightprice: sortedArr[0].value,
+        hightprice: sortedArr[0].value.toFixed(8),
         pricearray: sortedArr,
         changelly: changelly,
         exolix: exolix,
@@ -704,7 +726,7 @@ app.post("/multiplefetch", async (req, res) => {
 
 //**************************************** Changelly Float Transaction ************************* */
 app.post("/createTransaction/changelly/float", async (req,res) => {
-  const{sell,get,amount,sender_address,refund_address}=req.body;
+  const{sell,get,amount,sender_address,refund_address, extraid}=req.body;
   console.log(req.body)
 
   const privateKey = crypto.createPrivateKey({
@@ -727,7 +749,7 @@ app.post("/createTransaction/changelly/float", async (req,res) => {
        from: sell,
        to: get,
        address: sender_address,
-       extraId: null,
+       extraId: extraid,
        amount: amount,
        refundAddress: refund_address
     }
@@ -766,8 +788,8 @@ console.log(privateKeyString)
 });
 
 //**************************************** Changelly Fixed Transaction ************************* */
-app.post("/createTransaction/changelly/float", async (req,res) => {
-  const{sell,get,amount,sender_address,refund_address}=req.body;
+app.post("/createTransaction/changelly/fixed", async (req,res) => {
+  const{sell,get,amount,sender_address,refund_address, extraid}=req.body;
   console.log(req.body)
 
   const privateKey = crypto.createPrivateKey({
@@ -790,7 +812,7 @@ app.post("/createTransaction/changelly/float", async (req,res) => {
        from: sell,
        to: get,
        address: sender_address,
-       extraId: null,
+       extraId: extraid,
        amount: amount,
        refundAddress: refund_address
     }
@@ -831,10 +853,9 @@ console.log(privateKeyString)
 //**************************************** Changenow Floating Transactions ************************* */
 app.post("/createTransaction/changenow/float", async (req,res) => {
   
-  const {sell,get,amount,recieving_Address,refund_Address,email}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,extraid}=req.body
   console.log("changenow")
     console.log(req.body)
-
   
   const url = "https://api.changenow.io/v1/transactions/3016eb278f481714c943980dec2bfc595f8a2160e8eabd0228dc02cc627a184c";
   
@@ -843,6 +864,7 @@ app.post("/createTransaction/changenow/float", async (req,res) => {
  to: get,
  address: recieving_Address,
  amount: amount,
+ extraId: extraid,
  userId: "",
  contactEmail: email,
  refundAddress: refund_Address,
@@ -868,7 +890,7 @@ app.post("/createTransaction/changenow/fixed", async (req,res) => {
   
     console.log("changenow fixed")
 
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId,extraid}=req.body
   
   const url = "https://api.changenow.io/v1/transactions/fixed-rate/3016eb278f481714c943980dec2bfc595f8a2160e8eabd0228dc02cc627a184c";
   
@@ -878,6 +900,7 @@ app.post("/createTransaction/changenow/fixed", async (req,res) => {
       to: get,
       address: recieving_Address,
       amount: amount,
+      extraId: extraid,
       userId: "",
       contactEmail: email,
       refundAddress: refund_Address,
@@ -904,7 +927,7 @@ app.post("/createTransaction/StealthEX/float", async (req,res) => {
   
     console.log("StealthEX")
 
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId, extraid}=req.body
   
   const url = "https://api.stealthex.io/api/v2/exchange?api_key=fc69c031-976a-4e7f-b3db-e18f758bed5d";
   
@@ -913,6 +936,7 @@ app.post("/createTransaction/StealthEX/float", async (req,res) => {
         currency_from: sell,
         currency_to: get,
         address_to: recieving_Address,
+        extra_id_to: extraid,
         amount_from: amount,
         fixed:"false",
         refund_address:refund_Address,
@@ -937,7 +961,7 @@ app.post("/createTransaction/StealthEX/float", async (req,res) => {
 app.post("/createTransaction/StealthEX/fixed", async (req,res) => {
   
   console.log("StealthEX fixed")
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId, extraid}=req.body
   
   const url = "https://api.stealthex.io/api/v2/exchange?api_key=fc69c031-976a-4e7f-b3db-e18f758bed5d";
   
@@ -946,6 +970,7 @@ app.post("/createTransaction/StealthEX/fixed", async (req,res) => {
         currency_from: sell,
         currency_to: get,
         address_to: recieving_Address,
+        extra_id_to:extraid,
         amount_from: amount,
         fixed:"true",
         refund_address:refund_Address,
@@ -1043,12 +1068,12 @@ app.post("/createTransaction/Exolix/fixed", async (req,res) => {
 
 });
 
-//**************************************** Simpleswap Fixed Transactions ************************* */
+//**************************************** Simpleswap Float Transactions ************************* */
 app.post("/createTransaction/Simpleswap/float", async (req,res) => {
   
   console.log("Simpleswap")
 
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId,extraid}=req.body
   console.log(req.body)
 
   const url = "https://api.simpleswap.io/create_exchange?api_key=ae57f22d-7a23-4dbe-9881-624b2e147759";
@@ -1060,7 +1085,7 @@ app.post("/createTransaction/Simpleswap/float", async (req,res) => {
         currency_to: get,
         amount: amount,
         address_to: recieving_Address,
-        extra_id_to: "",
+        extra_id_to: extraid,
         user_refund_address: refund_Address,
         user_refund_extra_id: ""      
     
@@ -1086,7 +1111,7 @@ app.post("/createTransaction/Simpleswap/float", async (req,res) => {
 //**************************************** Simpleswap Fixed Transactions ************************* */
 app.post("/createTransaction/Simpleswap/fixed", async (req,res) => {
   
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId,extraid}=req.body
   console.log(req.body)
 
   const url = "https://api.simpleswap.io/create_exchange?api_key=ae57f22d-7a23-4dbe-9881-624b2e147759";
@@ -1098,7 +1123,7 @@ app.post("/createTransaction/Simpleswap/fixed", async (req,res) => {
         currency_to: get,
         amount: amount,
         address_to: recieving_Address,
-        extra_id_to: "",
+        extra_id_to: extraid,
         user_refund_address: refund_Address,
         user_refund_extra_id: ""      
     
@@ -1124,7 +1149,7 @@ app.post("/createTransaction/Simpleswap/fixed", async (req,res) => {
 //**************************************** Changehero Float Transactions ************************* */
 app.post("/createTransaction/Changehero/float", async (req,res) => {
   
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId,extraid}=req.body
   console.log(req.body)
 
   const url = "https://api.changehero.io/v2/";
@@ -1137,6 +1162,7 @@ app.post("/createTransaction/Changehero/float", async (req,res) => {
             from: sell,
             to: get,
             address:recieving_Address,
+            extraId:extraid,
             amount:amount,
             refundAddress:refund_Address
           }
@@ -1165,7 +1191,7 @@ app.post("/createTransaction/Changehero/float", async (req,res) => {
 //**************************************** Changehero Fixed Transactions ************************* */
 app.post("/createTransaction/Changehero/fixed", async (req,res) => {
   
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId,extraid}=req.body
 
   console.log("Changehero Fixed")
 
@@ -1182,6 +1208,7 @@ app.post("/createTransaction/Changehero/fixed", async (req,res) => {
             from: sell,
             to: get,
             address:recieving_Address,
+            extraId:extraid,
             amount:amount,
             refundAddress:refund_Address
           }
@@ -1249,11 +1276,10 @@ app.post("/createTransaction/Godex/float", async (req,res) => {
 
 });
  
- 
 //**************************************** Letsexchange Float Transactions ************************* */
 app.post("/createTransaction/Letsexchange/float", async (req,res) => {
   console.log("letsexchange")
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId, recieving_Extra_Id}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
   console.log(req.body)
 
   const url = "https://api.letsexchange.io/api/v1/transaction";
@@ -1265,7 +1291,7 @@ app.post("/createTransaction/Letsexchange/float", async (req,res) => {
       coin_to: get.toUpperCase(),
       deposit_amount: amount,
       withdrawal: recieving_Address,
-      withdrawal_extra_id:recieving_Extra_Id,
+      withdrawal_extra_id:"",
       return:refund_Address
 
 }
@@ -1295,7 +1321,7 @@ app.post("/createTransaction/Letsexchange/float", async (req,res) => {
 app.post("/createTransaction/Letsexchange/fixed", async (req,res) => {
   console.log("letsexchange_fixed")
 
-  const {sell,get,amount,recieving_Address,refund_Address,email,rateId, recieving_Extra_Id}=req.body
+  const {sell,get,amount,recieving_Address,refund_Address,email,rateId}=req.body
   console.log(req.body)
 
   const url = "https://api.letsexchange.io/api/v1/transaction";
@@ -1307,7 +1333,7 @@ app.post("/createTransaction/Letsexchange/fixed", async (req,res) => {
       coin_to: get.toUpperCase(),
       deposit_amount: amount,
       withdrawal: recieving_Address,
-      withdrawal_extra_id:recieving_Extra_Id,
+      withdrawal_extra_id:"",
       return:refund_Address,
       rate_id:rateId
 }
@@ -1339,13 +1365,13 @@ app.post("/createTransaction/Letsexchange/fixed", async (req,res) => {
 //**************************************** Changenow Transaction Status **************************** */
 app.post("/transactionStatus/Changenow", async (req,res)=>{
 
+
+
   const {id}=req.body
 
   const url = `https://api.changenow.io/v2/exchange/by-id?id=${id}`;
   
-  const params={    
 
-}
   const options={
     method:"GET",
     headers: {
@@ -1358,8 +1384,6 @@ app.post("/transactionStatus/Changenow", async (req,res)=>{
 
   const data= await response.json()
 
-  console.log(data)
-
   res.json(data)
 
 })
@@ -1371,9 +1395,6 @@ app.post("/transactionStatus/StealthEX", async (req,res)=>{
 
   const url = `https://api.stealthex.io/api/v2/exchange/${id}?api_key=fc69c031-976a-4e7f-b3db-e18f758bed5d`;
   
-  const params={    
-
-}
   const options={ 
     method:"GET",
     headers: {
@@ -1399,9 +1420,6 @@ app.post("/transactionStatus/Exolix", async (req,res)=>{
   const url = `https://exolix.com/api/v2/transactions/${id}`;
   console.log(url)
   
-  const params={    
-
-}
   const options={ 
     method:"GET",
     headers: {
@@ -1453,7 +1471,7 @@ app.post("/transactionStatus/Simpleswap", async (req,res)=>{
 app.post("/transactionStatus/Changehero", async (req,res)=>{
 
   const {id}=req.body
-
+console.log(id)
   const url = `https://api.changehero.io/v2/`;
   console.log(url)
   
@@ -1468,14 +1486,14 @@ app.post("/transactionStatus/Changehero", async (req,res)=>{
     method:"POST",
     headers: {
       "Content-Type": "application/json",
-      "Accept":"application/json"
+      "api-key":"46799cd819854116907d2a6f54926157"
     },
     body:JSON.stringify(params)
 
 }
 
   const response= await fetch(url,options)
-
+  console.log(response)
   const data= await response.json()
 
   console.log(data) 
